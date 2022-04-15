@@ -1,4 +1,4 @@
-module priorityQ
+module priorityQueue
 
 go 1.18
 
