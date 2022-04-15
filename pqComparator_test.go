@@ -1,4 +1,4 @@
-package PriorityQ
+package PriorityQueue
 
 import (
 	"fmt"

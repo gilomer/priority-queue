@@ -1,4 +1,4 @@
-package PriorityQ
+package PriorityQueue
 
 import (
 	"container/heap"
@@ -61,6 +61,6 @@ func (pq *heapMemory) Push(x interface{}) {
 
 func (pq *heapMemory) Pop() interface{} {
 	item := pq.slice[len(pq.slice)-1]
-	pq.slice = pq.slice[0:len(pq.slice)-1]
+	pq.slice = pq.slice[0 : len(pq.slice)-1]
 	return item
 }
