@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"testing"
 
-	pq "github.com/gilomer/PriorityQueue"
+	pq "github.com/gilomer/PriorityQueue/src"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -15,7 +15,7 @@ type Item struct {
 	b int
 }
 
-func (i Item) Comparator(other pq.Interface) bool {
+func (i Item) Comparator(other pq.Comparator) bool {
 	otherToCompare := other.(Item)
 	if i.a > otherToCompare.a {
 		return true
@@ -45,7 +45,7 @@ type ObjectWithSimpleAscendingComparator struct {
 	priority int
 }
 
-func (this *ObjectWithSimpleAscendingComparator) Comparator(other pq.Interface) bool {
+func (this *ObjectWithSimpleAscendingComparator) Comparator(other pq.Comparator) bool {
 	return this.priority < other.(*ObjectWithSimpleAscendingComparator).priority
 }
 
@@ -76,7 +76,7 @@ type ObjectWithSimpleDescendingComparator struct {
 	priority int
 }
 
-func (this *ObjectWithSimpleDescendingComparator) Comparator(other pq.Interface) bool {
+func (this *ObjectWithSimpleDescendingComparator) Comparator(other pq.Comparator) bool {
 	return this.priority > other.(*ObjectWithSimpleDescendingComparator).priority
 }
 
