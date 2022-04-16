@@ -102,3 +102,13 @@ func TestPriorityQueueDescending(t *testing.T) {
 	assert.Equal(t, n, i, "Q didn't return the expected amount")
 	assert.Nil(t, pq.Pop())
 }
+
+func TestPriorityDifferentTypes(t *testing.T) {
+	pq := pq.New()
+
+	obj := &ObjectWithSimpleDescendingComparator{msg: "", priority: 1}
+	obj2 := &ObjectWithSimpleAscendingComparator{msg: "", priority: 1}
+	pq.Push(obj)
+	err := pq.Push(obj2)
+	assert.NotNil(t, err)
+}

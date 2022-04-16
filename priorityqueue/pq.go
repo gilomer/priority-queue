@@ -2,6 +2,8 @@ package priorityqueue
 
 import (
 	"container/heap"
+	"errors"
+	"reflect"
 )
 
 type Comparator interface {
@@ -11,7 +13,8 @@ type Comparator interface {
 }
 
 type Queue struct {
-	queue heap.Interface
+	queue     heap.Interface
+	typeToUse reflect.Type
 }
 
 func New() *Queue {
@@ -20,8 +23,14 @@ func New() *Queue {
 	return pq
 }
 
-func (pq *Queue) Push(qItem Comparator) {
+func (pq *Queue) Push(qItem Comparator) error {
+	if pq.typeToUse == nil {
+		pq.typeToUse = reflect.TypeOf(qItem)
+	} else if pq.typeToUse != reflect.TypeOf(qItem) {
+		return errors.New("using wrong type")
+	}
 	heap.Push(pq.queue, qItem)
+	return nil
 }
 
 func (pq *Queue) Pop() Comparator {
