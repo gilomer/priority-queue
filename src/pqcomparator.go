@@ -1,13 +1,13 @@
-package PriorityQueue
+package src
 
 import (
 	"container/heap"
 )
 
-type Interface interface {
+type Comparator interface {
 	//this>other --> descending order
 	//this<other --> ascending order
-	Comparator(Interface) bool
+	Comparator(Comparator) bool
 }
 
 type Queue struct {
@@ -20,17 +20,17 @@ func New() *Queue {
 	return pq
 }
 
-func (pq *Queue) Push(qItem Interface) {
+func (pq *Queue) Push(qItem Comparator) {
 	heap.Push(pq.queue, qItem)
 }
 
-func (pq *Queue) Pop() Interface {
+func (pq *Queue) Pop() Comparator {
 
 	if pq.queue.Len() <= 0 {
 		return nil
 	}
 	r := heap.Pop(pq.queue)
-	return r.(Interface)
+	return r.(Comparator)
 }
 
 type heapMemory struct {
@@ -43,7 +43,7 @@ func newHeapMemory() *heapMemory {
 	}
 }
 
-type internalSlice []Interface
+type internalSlice []Comparator
 
 func (pq *heapMemory) Len() int { return len(pq.slice) }
 
@@ -56,7 +56,7 @@ func (pq *heapMemory) Swap(i, j int) {
 }
 
 func (pq *heapMemory) Push(x interface{}) {
-	pq.slice = append(pq.slice, x.(Interface))
+	pq.slice = append(pq.slice, x.(Comparator))
 }
 
 func (pq *heapMemory) Pop() interface{} {

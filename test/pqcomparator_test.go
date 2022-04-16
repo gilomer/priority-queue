@@ -1,4 +1,4 @@
-package PriorityQueue
+package test
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"testing"
 
+	pq "github.com/gilomer/PriorityQueue"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -14,7 +15,7 @@ type Item struct {
 	b int
 }
 
-func (i Item) Comparator(other Interface) bool {
+func (i Item) Comparator(other pq.Interface) bool {
 	otherToCompare := other.(Item)
 	if i.a > otherToCompare.a {
 		return true
@@ -27,7 +28,7 @@ func (i Item) Comparator(other Interface) bool {
 }
 
 func TestPriorityQueueStruct(t *testing.T) {
-	queue := New()
+	queue := pq.New()
 	queue.Push(Item{1, 2})
 	queue.Push(Item{2, 2})
 	queue.Push(Item{1, 3})
@@ -44,13 +45,13 @@ type ObjectWithSimpleAscendingComparator struct {
 	priority int
 }
 
-func (this *ObjectWithSimpleAscendingComparator) Comparator(other Interface) bool {
+func (this *ObjectWithSimpleAscendingComparator) Comparator(other pq.Interface) bool {
 	return this.priority < other.(*ObjectWithSimpleAscendingComparator).priority
 }
 
 func TestPriorityQueueAscending(t *testing.T) {
 	n := 1000
-	pq := New()
+	pq := pq.New()
 
 	for i := 0; i < n; i++ {
 		priority := rand.Intn(100)
@@ -75,13 +76,13 @@ type ObjectWithSimpleDescendingComparator struct {
 	priority int
 }
 
-func (this *ObjectWithSimpleDescendingComparator) Comparator(other Interface) bool {
+func (this *ObjectWithSimpleDescendingComparator) Comparator(other pq.Interface) bool {
 	return this.priority > other.(*ObjectWithSimpleDescendingComparator).priority
 }
 
 func TestPriorityQueueDescending(t *testing.T) {
 	n := 1000
-	pq := New()
+	pq := pq.New()
 
 	for i := 0; i < n; i++ {
 		priority := rand.Intn(10)
