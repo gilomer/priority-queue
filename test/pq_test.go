@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"testing"
 
-	pq "github.com/gilomer/PriorityQueue/src"
+	pq "github.com/gilomer/priority-queue/priorityqueue"
 	"github.com/stretchr/testify/assert"
 )
 
